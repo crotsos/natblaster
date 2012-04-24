@@ -2,7 +2,8 @@ CC = gcc
 INCLUDES = -I./src/share -I./src/peer -I./src/helper
 PEER_LIBS = -L/usr/local/lib -lpcap -lnet
 SHARE_LIBS = -lpthread
-CFLAGS = -Wall -Werror -O3 -fno-strict-aliasing 
+# CFLAGS = -Wall -Werror -O3 -fno-strict-aliasing 
+CFLAGS = -Wall -O3 -fno-strict-aliasing 
 LIBNET_FLAGS = -D_BSD_SOURCE -D__BSD_SOURCE -D__FAVOR_BSD -DHAVE_NET_ETHERNET_H
 
 SHARE_OBJS = ./src/share/nethelp.o ./src/share/netio.o ./src/share/list.o ./src/share/util.o 
@@ -33,7 +34,7 @@ FILES=./src/helper/*.[ch] ./src/peer/*.[ch] ./src/share/*.[ch] \
 all: both
 
 %.o: %.c 
-	$(CC) -c -o $(@) $(CFLAGS) $(INCLUDES) $(LIBNET_FLAGS) $(@:.o=.c)
+	$(CC) -fPIC -c -o $(@) $(CFLAGS) $(INCLUDES) $(LIBNET_FLAGS) $(@:.o=.c)
 
 both: $(PEER_EXE) $(HELPER_EXE)
 
